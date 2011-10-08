@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="white">#fff</color>
+	<color name="white_90">#95ffffff</color>
+	<color name="white_70">#70ffffff</color>
+	<color name="white_50">#50ffffff</color>
+	
+	<color name="black">#000</color>
+	<color name="black_90">#90000000</color>
+	<color name="black_70">#90000000</color>
+	<color name="black_50">#70000000</color>
+
+	<color name="light_grey">#bfbfbf</color>
+	<color name="grey">#808080</color>
+	<color name="dark_grey">#404040</color>
+
+	<color name="light_blue">#69f</color>
+	<color name="blue">#36c</color>
+	<color name="dark_blue">#039</color>
+	
+	<color name="light_green">#9c3</color>
+	<color name="green">#0c0</color>
+	<color name="bright_green">#690</color>
+
+	<color name="yellow">#fc0</color>
+	
+	<color name="orange">#f90</color>
+	<color name="bright_orange">#f60</color>
+	
+	<color name="red">#cc0000</color>
+
+</resources>
+

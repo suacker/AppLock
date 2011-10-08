@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<style name="common_header_button">
+		<item name="android:background">@drawable/blue_grad</item>
+		<item name="android:padding">10sp</item>
+		<item name="android:textColor">@color/white</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:shadowColor">@color/black_70</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">-1</item>
+		</style>
+		
+	<style name="separator">
+		<item name="android:background">@color/light_grey</item>
+		<item name="android:height">1sp</item>
+		</style>
+		
+	<style name="separator_black">
+		<item name="android:background">@color/black</item>
+		<item name="android:height">1sp</item>
+		</style>
+	
+	<style name="Header" parent="common_header_button">
+        <item name="android:layout_marginBottom">20sp</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:textSize">20sp</item>
+    	</style>
+    
+    <style name="Button" parent="common_header_button">
+    	<item name="android:background">@drawable/green_button_states</item>
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:hapticFeedbackEnabled">true</item>
+    	</style>
+    	
+</resources>

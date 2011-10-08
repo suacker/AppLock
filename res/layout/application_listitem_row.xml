@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:id="@+id/LinearLayout02"
+		android:orientation="horizontal" android:paddingTop="5sp" android:paddingBottom="5sp">
+
+		<ImageView android:src="@drawable/icon" android:id="@+id/imageView1"
+			android:layout_width="@android:dimen/app_icon_size"
+			android:layout_height="@android:dimen/app_icon_size"
+			android:paddingRight="5sp"></ImageView>
+
+		<TextView android:text="TextView" android:id="@+id/textView1"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall"></TextView>
+			
+		<TextView android:id="@+id/textHiddenAppPackage"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:visibility="gone"></TextView>
+			
+		<CheckBox android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:id="@+id/checkBox1"></CheckBox>
+	</LinearLayout>
+
+	<View android:layout_width="match_parent" android:layout_gravity="bottom"
+		android:layout_height="1sp" android:orientation="vertical" style="@style/separator" />
+</LinearLayout>

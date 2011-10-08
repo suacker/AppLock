@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory 
+        android:title="@string/basic_settings"
+        android:key="basic_settings">
+        
+        <CheckBoxPreference 
+            android:key="lock_status"
+            android:title="@string/lock_status" 
+            android:summaryOn="Lock Status On"
+            android:summaryOff="Lock Status Off"
+            android:defaultValue="false"
+        />
+        
+        <!-- <CheckBoxPreference 
+        	android:key="delay_lock"
+        	android:title="@string/delay_lock"
+        	android:summaryOn="Delay Lock On"
+        	android:summaryOff="Delay Lock Off"
+        	android:defaultValue="false"/>
+        	
+        <ListPreference 
+        	android:key="delay_time"
+        	android:title="@string/delay_time"
+        	android:summary="Delay Lock Time"
+        	android:entries="@array/delay_time"
+        	android:entryValues="@array/delay_time_values"/>
+        	
+        <CheckBoxPreference 
+        	android:key="notification_bar"
+        	android:title="@string/notification_bar"
+        	android:summaryOn="Show icon in notification bar"
+        	android:summaryOff="Do not show icon in notification bar"
+        	android:defaultValue="true"/>
+        	
+        <CheckBoxPreference 
+        	android:key="transparent_bar"
+        	android:title="@string/transparent_bar"
+        	android:summaryOn="Icon is transparent in notification bar"
+        	android:summaryOff="Icon is not transparent in notification bar"
+        	android:defaultValue="false"/>  -->
+    </PreferenceCategory>
+
+    <PreferenceCategory 
+        android:title="@string/security_settings"
+        android:key="security_settings">
+
+        <ListPreference 
+        	android:key="lock_type"
+        	android:title="@string/change_lock_type"
+        	android:entries="@array/lock_type"
+        	android:entryValues="@array/lock_type_values" />
+        	
+        <CheckBoxPreference 
+        	android:key="use_visible_pattern"
+        	android:title="@string/use_visible_pattern"
+        	android:summaryOn="Visible pattern on"
+        	android:summaryOff="Visible pattern off"
+        	android:defaultValue="true"/>
+        	
+        <!--  <CheckBoxPreference 
+        	android:key="vibration_feedback"
+        	android:title="@string/vibration_feedback"
+        	android:summaryOn="Vibration feedback on"
+        	android:summaryOff="Vibration feedback off"/> -->
+    </PreferenceCategory>
+    
+</PreferenceScreen>

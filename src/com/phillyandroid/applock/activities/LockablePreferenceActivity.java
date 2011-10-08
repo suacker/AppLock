@@ -1,0 +1,118 @@
+package com.phillyandroid.applock.activities;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+
+import com.phillyandroid.applock.R;
+import com.phillyandroid.applock.lockpattern.ConfirmLockPattern;
+import com.phillyandroid.applock.lockpattern.LockPatternUtils;
+
+public class LockablePreferenceActivity extends PreferenceActivity {
+    private static int PATTERNLOCK_UNLOCK = 42;
+	private SharedPreferences mPrefs;
+	private Editor mEditor;
+	private LockPatternUtils mLockPatternUtils;
+    private boolean mHasLoaded = false;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		mLockPatternUtils = new LockPatternUtils(this);
+        mLockPatternUtils.setVisiblePatternEnabled(mPrefs.getBoolean("patternlock_visible_pattern", true));
+        mLockPatternUtils.setTactileFeedbackEnabled(mPrefs.getBoolean("patternlock_tactile_feedback", false));
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// Don't do anything if not lock pattern is set
+		if (!mLockPatternUtils.isLockPatternEnabled()) return;
+        /*
+        Save the current time If a lock pattern has been set
+        If this activity never loaded set the lock time to
+        10 seconds ago.
+        This is to prevent the following scenario:
+            1. Activity Starts 
+            2. Lock screen is displayed
+            3. User presses the home button
+            4. "lock time" is set in onPause to when the home button was pressed
+            5. Activity is started again within 2 seconds and no lock screen is shown this time.
+        */ 
+        if (mHasLoaded) {
+            writeLockTime();
+        } else {
+            writeLockTime(System.currentTimeMillis()-10000);
+        }
+    }
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+        // Don't do anything if lock pattern is not set
+		if (!mLockPatternUtils.isLockPatternEnabled() || !isLockEnabled()) {
+		    return;
+		}
+		// If a lock pattern is set we need to check the time for when the last
+		// activity was open. If it's been more than two seconds the user
+		// will have to enter the lock pattern to continue.
+		long currentTime = System.currentTimeMillis();
+		long lockedAt = mPrefs.getLong("locked_at", currentTime-10000);
+		long timedif = currentTime - lockedAt;
+		if (timedif > 2000) {
+		    launchPatternLock();
+		}
+        else {
+            mHasLoaded = true;          
+        }
+	}
+
+	private void launchPatternLock() {
+        Intent intent = new Intent(this, ConfirmLockPattern.class);
+        intent.putExtra(ConfirmLockPattern.DISABLE_BACK_KEY, true);
+        intent.putExtra(ConfirmLockPattern.HEADER_TEXT, getText(R.string.patternlock_header));
+        startActivityForResult(intent, PATTERNLOCK_UNLOCK);         
+	}
+	
+    private void writeLockTime() {
+        writeLockTime(System.currentTimeMillis());
+    }
+
+    private void writeLockTime(long time) {
+        mEditor = mPrefs.edit();
+        mEditor.putLong("locked_at", time);
+        mEditor.commit();       
+    }
+
+	protected void setLockEnabled(boolean enabled) {
+        mEditor = mPrefs.edit();
+        mEditor.putBoolean("lock_enabled", enabled);
+        mEditor.commit();        
+	}
+
+    protected boolean isLockEnabled() {
+        return mPrefs.getBoolean("lock_enabled", true);       
+    }	
+    protected void onActivityResult(int requestCode, int resultCode,
+            Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PATTERNLOCK_UNLOCK) {
+            if (resultCode == RESULT_OK) {
+                writeLockTime();
+            }
+            else {
+                launchPatternLock();
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        setLockEnabled(true);
+    }   	
+}

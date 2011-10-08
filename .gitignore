@@ -1,0 +1,13 @@
+*.apk
+*.bak
+*.jar
+*.swp
+*.tmp
+*~
+.DS_Store
+.metadata
+bin
+gen
+local.properties
+tmp/**
+tmp/**/*

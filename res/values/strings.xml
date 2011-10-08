@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="hello">Hello World, AppLockPhoneActivity!</string>
+    <string name="app_name">AppLockPhone</string>
+    <string name="text_protected_applications">Protected Applications</string>
+    <string name="string_application_list">Application List</string>
+    <string name="protection_settings">Protection Settings</string>
+    <string name="basic_settings">Basic Settings</string>
+    <string name="lock_status">Lock Status</string>
+    <string name="delay_lock">Delay Lock</string>
+    <string name="transparent_bar">Transparent Bar</string>
+    <string name="notification_bar">Notification Bar</string>
+    <string name="delay_time">Delay Time</string>
+    <string name="security_settings">Security Settings</string>
+    <string name="change_lock_type">Change Lock Type</string>
+    <string name="change_lock_pattern">Change Lock Pattern</string>
+    <string name="use_visible_pattern">Use Visible Pattern</string>
+    <string name="vibration_feedback">Vibration Feedback</string>
+    
+    <string name="lock_cancel">Cancel</string>
+	<string name="lock_ok">Ok</string>
+	<string name="lock_title">Securing your phone</string>
+	
+	<string name="lock_intro_message"><font size="17">Protect your phone from unauthorized use by creating a personal screen unlock pattern.
+        \n<font height="17">\n</font><b>1</b>\u00A0 On the next screen, watch while an example pattern is drawn.
+        \n<font height="17">\n</font><b>2</b>\u00A0 When ready, draw your own personal unlock pattern. Experiment with different patterns but connect at least four dots.
+        \n<font height="17">\n</font><b>3</b>\u00A0 Redraw your pattern to confirm.
+        \n<font height="17">\n</font><b>Ready to start? Select \u201CNext\u201D</b>.
+        \n<font height="3">\n</font>To leave your phone unprotected, select \u201CCancel\u201D.</font>
+    </string> 
+    <string name="skip_button_label">Cancel</string>
+    <string name="next_button_label">Next</string>
+    
+    <string name="lock_example_title">Example pattern</string>
+    <string name="lock_example_message">Connect at least four dots.\n
+        \nSelect \u201CNext\u201D when you\u2019re ready to draw your own pattern.
+    </string>
+    
+    <!-- Lock Pattern settings -->
+    <!-- Unlock header -->
+    <string name="patternlock_header">Draw pattern to unlock Bankdroid</string>
+    <string name="lock_settings_title">Screen unlock pattern</string>
+    <string name="lockpattern_change_lock_pattern_label">Change unlock pattern</string>
+    <string name="lockpattern_need_to_unlock">Confirm saved pattern</string>
+    <string name="lockpattern_need_to_unlock_footer"></string>
+    <string name="lockpattern_need_to_unlock_wrong">Sorry, try again:</string>
+    <string name="lockpattern_need_to_unlock_wrong_footer"></string>
+    <string name="lockpattern_recording_intro_header">Draw an unlock pattern</string>
+    <string name="lockpattern_recording_intro_footer">Press Menu for help.</string>
+    <string name="lockpattern_recording_inprogress">Release finger when done.</string>
+    <string name="lockpattern_recording_incorrect_too_short">Connect at least <xliff:g id="number">%d</xliff:g> dots. Try again:</string>
+    <string name="lockpattern_pattern_entered_header">Pattern recorded!</string>
+    <string name="lockpattern_need_to_confirm">Draw pattern again to confirm:</string>
+    <string name="lockpattern_pattern_confirmed_header">Your new unlock pattern:</string>
+    <string name="lockpattern_confirm_button_text">Confirm</string>
+    <string name="lockpattern_restart_button_text">Redraw</string>
+    <string name="lockpattern_retry_button_text">Retry</string>
+    <string name="lockpattern_continue_button_text">Continue</string>
+    <string name="lockpattern_settings_title">Unlock pattern</string>
+    <string name="lockpattern_settings_enable_title">Require pattern</string>
+    <string name="lockpattern_settings_enable_summary">Must draw pattern to unlock screen</string>
+    <string name="lockpattern_settings_enable_visible_pattern_title">Use visible pattern</string>
+    <string name="lockpattern_settings_enable_tactile_feedback_title">Use tactile feedback</string>
+    <string name="lockpattern_settings_choose_lock_pattern">Set unlock pattern</string>
+    <string name="lockpattern_settings_change_lock_pattern">Change unlock pattern</string>
+    <string name="lockpattern_settings_help_how_to_record">How to draw an unlock pattern</string>
+    <string name="lockpattern_too_many_failed_confirmation_attempts_header">Too many incorrect attempts!</string>
+    <string name="lockpattern_too_many_failed_confirmation_attempts_footer">Try again in <xliff:g id="number">%d</xliff:g> seconds.</string>
+
+</resources>
