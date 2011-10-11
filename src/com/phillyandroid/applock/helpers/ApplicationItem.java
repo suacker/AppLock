@@ -6,48 +6,50 @@ import android.graphics.drawable.Drawable;
 import com.phillyandroid.applock.database.ProtectedApplicationsTable;
 
 public class ApplicationItem {
-	private String title;
-	private String packageName;
-	private Drawable image;
-	private Context context;
+	private String sTitle;
+	private String sPackageName;
+	private Drawable mImage;
+	private Context mContext;
+	
+	private final static String TAG = "ApplicationItem";
 	
 	public String getTitle() {
-		return title;
+		return sTitle;
 	}
 	
 	public void setTitle(String title) {
-		this.title = title;
+		sTitle = title;
 	}
 	
 	public String getPackageName() {
-		return packageName;
+		return sPackageName;
 	}
 	
 	public void setPackageName(String packageName) {
-		this.packageName = packageName;
+		sPackageName = packageName;
 	}
 	
 	public Drawable getImage() {
-		return image;
+		return mImage;
 	}
 	
 	public void setImage(Drawable image) {
-		this.image = image;
+		mImage = image;
 	}
 	
 	public Context getContext() {
-		return this.context;
+		return mContext;
 	}
 	
 	public void setContext(Context c) {
-		this.context = c;
+		mContext = c;
 	}
 	
 	public void addValueToDatabase() {
-		ProtectedApplicationsTable table = new ProtectedApplicationsTable(context);
-		table.open();
-		table.createRow(title, packageName);
-		table.close();
+		ProtectedApplicationsTable mTable = new ProtectedApplicationsTable(mContext);
+		mTable.open();
+		mTable.createRow(sTitle, sPackageName);
+		mTable.close();
 	}
 	
 	/**
@@ -58,13 +60,13 @@ public class ApplicationItem {
 	}
 	
 	public ApplicationItem(Context context) {
-		this.context = context;
+		mContext = context;
 	}
 	
 	public ApplicationItem(String title, String packageName, Drawable image, Context context) {
-		this.title = title;
-		this.packageName = packageName;
-		this.image = image;
-		this.context = context;
+		sTitle = title;
+		sPackageName = packageName;
+		mImage = image;
+		mContext = context;
 	}
 }

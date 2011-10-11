@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class ProtectedApplicationsTable {
+	private final static String TAG = "ProtectedApplicationsTable";
+	
 	private static final String DATABASE_NAME = "ProtectedApplicationsDatabase";
 	private static final String DATABASE_TABLE = "ProtectedApplications";
 	private static final int DATABASE_VERSION = 1;
@@ -19,14 +21,14 @@ public class ProtectedApplicationsTable {
 	public static final String COL_APPNAME = "application_name";
 	public static final String COL_PACKAGE = "application_package";
 	
-	private DatabaseHelper helper;
-	private SQLiteDatabase db;
+	private DatabaseHelper mDbHelper;
+	private SQLiteDatabase mDatabase;
 	
 	private static final String DB_CREATE = "CREATE TABLE " + DATABASE_TABLE + 
 			" (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			COL_APPNAME + " TEXT NOT NULL, " + COL_PACKAGE + " TEXT NOT NULL);";
 	
-	private final Context context;
+	private final Context mContext;
 	
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -47,26 +49,26 @@ public class ProtectedApplicationsTable {
 	}
 	
 	public ProtectedApplicationsTable(Context context) {
-		this.context = context;
+		mContext = context;
 	}
 	
 	public ProtectedApplicationsTable open() throws SQLException {
-		helper = new DatabaseHelper(context);
-		db = helper.getReadableDatabase();
+		mDbHelper = new DatabaseHelper(mContext);
+		mDatabase = mDbHelper.getReadableDatabase();
 		
 		return this;
 	}
 	
 	public void close() {
-		helper.close();
-		db.close();
+		mDbHelper.close();
+		mDatabase.close();
 	}
 	
 	public long createRow(String applicationName, String applicationPackage) {
 		
 		long insertId;
 		ArrayList<String> rows = new ArrayList<String>();
-		Cursor c = db.query(DATABASE_TABLE, new String[] {COL_ID}, COL_PACKAGE + " = '" + applicationPackage + "'", null, null, null, null);
+		Cursor c = mDatabase.query(DATABASE_TABLE, new String[] {COL_ID}, COL_PACKAGE + " = '" + applicationPackage + "'", null, null, null, null);
 		
 		c.moveToFirst();
 		while(c.isAfterLast() == false) {
@@ -82,21 +84,21 @@ public class ProtectedApplicationsTable {
 			initialValues.put(COL_APPNAME, applicationName);
 			initialValues.put(COL_PACKAGE, applicationPackage);
 			
-			insertId = db.insert(DATABASE_TABLE, null, initialValues);
+			insertId = mDatabase.insert(DATABASE_TABLE, null, initialValues);
 		} else {
 			insertId = 0;
-			Log.d("ProtectedApplicationsTable", applicationPackage + " already found in db; not adding.");
+			Log.d("ProtectedApplicationsTable", applicationPackage + " already found in mDatabase; not adding.");
 		}
 		
 		return insertId;
 	}
 	
 	public boolean deleteRow(long rowId) {
-		return db.delete(DATABASE_TABLE, COL_ID + " = " + rowId , null) > 0;
+		return mDatabase.delete(DATABASE_TABLE, COL_ID + " = " + rowId , null) > 0;
 	}
 	
 	public Cursor fetchAllRows() {
-		return db.query(DATABASE_TABLE, new String[] {COL_ID, COL_APPNAME, COL_PACKAGE}, null, null, null, null, null);
+		return mDatabase.query(DATABASE_TABLE, new String[] {COL_ID, COL_APPNAME, COL_PACKAGE}, null, null, null, null, null);
 	}
 	
 	public Cursor fetchRowById(long rowId) throws SQLException {

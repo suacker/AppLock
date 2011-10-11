@@ -3,8 +3,11 @@ package com.phillyandroid.applock.activities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -12,7 +15,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -21,12 +23,12 @@ import com.phillyandroid.applock.adapters.ListViewCustomAdapter;
 import com.phillyandroid.applock.helpers.ApplicationItem;
 
 public class AddApplicationActivity extends Activity implements OnClickListener {
-	ListView lview3;
-	ListViewCustomAdapter adapter;
-	CheckBox cb;
+	private final static String TAG = "AddApplicationActivity";
 	
-	private ArrayList<Object> itemList;
-	private ApplicationItem item;
+	private ListView mApplicationList;
+	private ListViewCustomAdapter mAdapter;
+	private ArrayList<Object> mItemList;
+	private ApplicationItem mApplicationItem;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,56 +36,65 @@ public class AddApplicationActivity extends Activity implements OnClickListener 
 		
 		setContentView(R.layout.application_list);
 		
+		ProgressDialog mProgressDialog = ProgressDialog.show(AddApplicationActivity.this,"",getString(R.string.loading_application_list));
+		
 		prepareArrayLists();
 		
-		Collections.sort(itemList, new Comparator<Object>() {
+		Collections.sort(mItemList, new Comparator<Object>() {
 
 			@Override
 			public int compare(Object appItem1, Object appItem2) {
-				ApplicationItem item1 = (ApplicationItem) appItem1;
-				ApplicationItem item2 = (ApplicationItem) appItem2;
+				final ApplicationItem applicationItem1 = (ApplicationItem) appItem1;
+				final ApplicationItem applicationItem2 = (ApplicationItem) appItem2;
 				
-				return item1.getTitle().compareToIgnoreCase(item2.getTitle());
+				return applicationItem1.getTitle().compareToIgnoreCase(applicationItem2.getTitle());
 			}
 			
 		});
 		
-		lview3 = (ListView)findViewById(R.id.listView1);
-		adapter = new ListViewCustomAdapter(this, itemList);
-		lview3.setAdapter(adapter);
+		Set<Object> mItemSet = new LinkedHashSet<Object>(mItemList);
 		
-		ImageButton imageButton2 = (ImageButton)findViewById(R.id.imageButton2);
-        imageButton2.setOnClickListener(this);
+		mItemList.clear();
+		mItemList.addAll(mItemSet);
+		
+		mApplicationList = (ListView)findViewById(R.id.application_list);
+		mAdapter = new ListViewCustomAdapter(this, mItemList);
+		mApplicationList.setAdapter(mAdapter);
+		
+		mProgressDialog.dismiss();
+		
+		ImageButton mButtonSettings = (ImageButton)findViewById(R.id.button_settings);
+        mButtonSettings.setOnClickListener(this);
 	}
 
 	private void prepareArrayLists() {
-		itemList = new ArrayList<Object>();
+		mItemList = new ArrayList<Object>();
 		
 		PackageManager pm = this.getPackageManager();
 		
 		Intent i = new Intent(Intent.ACTION_MAIN);
 		i.addCategory(Intent.CATEGORY_LAUNCHER);
 		
-		ArrayList<ResolveInfo> list = (ArrayList<ResolveInfo>)pm.queryIntentActivities(i, PackageManager.PERMISSION_GRANTED);
+		ArrayList<ResolveInfo> mList = (ArrayList<ResolveInfo>)pm.queryIntentActivities(i, PackageManager.PERMISSION_GRANTED);
 		
-		for(ResolveInfo resInfo : list) {
+		for(ResolveInfo resInfo : mList) {
 			AddObjectToList(resInfo.activityInfo.applicationInfo.loadIcon(pm), resInfo.activityInfo.applicationInfo.loadLabel(pm).toString(),resInfo.activityInfo.applicationInfo.packageName);
 		}
 	}
 
 	private void AddObjectToList(Drawable image, String title, String packageName) {
-		item = new ApplicationItem();
-		item.setTitle(title);
-		item.setPackageName(packageName);
-		item.setImage(image);
+		mApplicationItem = new ApplicationItem();
+		mApplicationItem.setTitle(title);
+		mApplicationItem.setPackageName(packageName);
+		mApplicationItem.setImage(image);
 		
-		itemList.add(item);
+		mItemList.add(mApplicationItem);
 	}
 
 	@Override
 	public void onClick(View view) {
 		switch(view.getId()) {
-		case R.id.imageButton2:
+		case R.id.button_settings:
 			/**
 			 * Get all checked applications and send to next activity.
 			 */

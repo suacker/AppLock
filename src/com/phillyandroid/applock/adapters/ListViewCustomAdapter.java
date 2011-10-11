@@ -18,35 +18,35 @@ import com.phillyandroid.applock.R;
 import com.phillyandroid.applock.helpers.ApplicationItem;
 
 public class ListViewCustomAdapter extends BaseAdapter {
-
-	ArrayList<Object> itemList;
+	private final static String TAG = "ListViewCustomAdapter";
 	
-	public Activity context;
-	public LayoutInflater inflater;
+	private ArrayList<Object> mItemList;
+	private Activity mContext;
+	private LayoutInflater mInflater;
 	
 	public static class ViewHolder {
-		ImageView imgViewLogo;
-		TextView textViewTitle;
-		CheckBox appCheckBox;
-		TextView textHiddenAppPackage;
+		private ImageView mImgViewHolder;
+		private TextView mTextViewTitle;
+		private CheckBox mAppCheckBox;
+		private TextView mTextViewHiddenPackageName;
 	}
 	
 	public ListViewCustomAdapter(Activity context,ArrayList<Object> itemList) {
 		super();
 		
-		this.context = context;
-		this.itemList = itemList;
-		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mContext = context;
+		mItemList = itemList;
+		mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	
 	@Override
 	public int getCount() {
-		return itemList.size();
+		return mItemList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return itemList.get(position);
+		return mItemList.get(position);
 	}
 
 	@Override
@@ -56,41 +56,42 @@ public class ListViewCustomAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final ViewHolder holder;
+		final ViewHolder mHolder;
 		
 		if(convertView == null) {
-			holder = new ViewHolder();
+			mHolder = new ViewHolder();
 			
-			convertView = inflater.inflate(R.layout.application_listitem_row, null);
+			convertView = mInflater.inflate(R.layout.application_listitem_row, null);
 			
-			holder.imgViewLogo = (ImageView)convertView.findViewById(R.id.imageView1);
-			holder.textViewTitle = (TextView)convertView.findViewById(R.id.textView1);
-			holder.textHiddenAppPackage = (TextView)convertView.findViewById(R.id.textHiddenAppPackage);
-			holder.appCheckBox = (CheckBox)convertView.findViewById(R.id.checkBox1);
+			mHolder.mImgViewHolder = (ImageView)convertView.findViewById(R.id.application_image);
+			mHolder.mTextViewTitle = (TextView)convertView.findViewById(R.id.application_name);
+			mHolder.mTextViewHiddenPackageName = (TextView)convertView.findViewById(R.id.text_hidden_package_name);
+			mHolder.mAppCheckBox = (CheckBox)convertView.findViewById(R.id.application_checkbox);
 			
-			holder.appCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			mHolder.mAppCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override
 				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 					if(isChecked) {		
-						ApplicationItem app_item = new ApplicationItem(context);
-						app_item.setTitle(holder.textViewTitle.getText().toString());
-						app_item.setPackageName(holder.textHiddenAppPackage.getText().toString());
+						ApplicationItem app_item = new ApplicationItem(mContext);
+						
+						app_item.setTitle(mHolder.mTextViewTitle.getText().toString());
+						app_item.setPackageName(mHolder.mTextViewHiddenPackageName.getText().toString());
 						app_item.addValueToDatabase();
 					}
 				}
 				
 			});
 			
-			convertView.setTag(holder);
+			convertView.setTag(mHolder);
 		} else {
-			holder = (ViewHolder)convertView.getTag();
+			mHolder = (ViewHolder)convertView.getTag();
 		}
 		
-		ApplicationItem app_item = (ApplicationItem) itemList.get(position);
+		ApplicationItem app_item = (ApplicationItem) mItemList.get(position);
 		
-		holder.imgViewLogo.setImageDrawable(app_item.getImage());
-		holder.textViewTitle.setText(app_item.getTitle());
-		holder.textHiddenAppPackage.setText(app_item.getPackageName());
+		mHolder.mImgViewHolder.setImageDrawable(app_item.getImage());
+		mHolder.mTextViewTitle.setText(app_item.getTitle());
+		mHolder.mTextViewHiddenPackageName.setText(app_item.getPackageName());
 		
 		return convertView;
 	}

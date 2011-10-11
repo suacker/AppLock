@@ -16,6 +16,7 @@
     <string name="change_lock_pattern">Change Lock Pattern</string>
     <string name="use_visible_pattern">Use Visible Pattern</string>
     <string name="vibration_feedback">Vibration Feedback</string>
+    <string name="loading_application_list">Loading application list...</string>
     
     <string name="lock_cancel">Cancel</string>
 	<string name="lock_ok">Ok</string>

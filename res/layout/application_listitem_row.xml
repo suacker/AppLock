@@ -4,26 +4,26 @@
 	android:layout_height="match_parent">
 
 	<LinearLayout android:layout_height="wrap_content"
-		android:layout_width="match_parent" android:id="@+id/LinearLayout02"
+		android:layout_width="match_parent" android:id="@+id/application_list_row"
 		android:orientation="horizontal" android:paddingTop="5sp" android:paddingBottom="5sp">
 
-		<ImageView android:src="@drawable/icon" android:id="@+id/imageView1"
+		<ImageView android:src="@drawable/icon" android:id="@+id/application_image"
 			android:layout_width="@android:dimen/app_icon_size"
 			android:layout_height="@android:dimen/app_icon_size"
 			android:paddingRight="5sp"></ImageView>
 
-		<TextView android:text="TextView" android:id="@+id/textView1"
+		<TextView android:text="TextView" android:id="@+id/application_name"
 			android:layout_height="wrap_content" android:layout_weight="1"
 			android:layout_width="wrap_content" android:textAppearance="?android:attr/textAppearanceSmall"></TextView>
 			
-		<TextView android:id="@+id/textHiddenAppPackage"
+		<TextView android:id="@+id/text_hidden_package_name"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:visibility="gone"></TextView>
 			
 		<CheckBox android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:id="@+id/checkBox1"></CheckBox>
+			android:layout_height="wrap_content" android:id="@+id/application_checkbox"></CheckBox>
 	</LinearLayout>
 
 	<View android:layout_width="match_parent" android:layout_gravity="bottom"
